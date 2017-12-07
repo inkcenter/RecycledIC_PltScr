@@ -3,8 +3,8 @@
 
 #set up
 design = 'RO_11'
-directory = './'+design
-ori_data = './'+design+'/'+design+'_pre.mt0@ra'
+directory = './'+design+'/'
+ori_data = directory+design+'_pre.mt0@ra'
 
 import re
 import os
@@ -68,8 +68,8 @@ plt.ylabel('delay time')
 #plt.axis([0,40,0,8.500e-8])
 plt.xticks([0,6,12,18,24,30,36],[0,6,12,18,24,30,36])
 #plt.yticks([],[])
-plt.savefig('RO_11.eps')
-plt.savefig('RO_11.jpg')
+plt.savefig(directory+design+'.eps')
+plt.savefig(directory+design+'.jpg')
 
 
 

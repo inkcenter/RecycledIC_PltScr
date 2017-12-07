@@ -3,9 +3,9 @@
 
 #set up
 design = 'buffer_mux_delay'
-directory = './'+design
-fresh_data= './'+design+'/'+design+'.mt0'
-ori_data = './'+design+'/'+design+'.mt0@ra'
+directory = './'+design+'/'
+fresh_data= directory+design+'.mt0'
+ori_data = directory+design+'.mt0@ra'
 
 import re
 import os
@@ -87,27 +87,62 @@ x=range(len(tmp)) #reltime
 title=np.array(tmp).T
 y=title[1:] #delay
 
-plt.figure(figsize=(8,6), dpi=98)
-plt.subplot(1,1,1)
-#plt.plot(x,y_title1,color="blue",linewidth=1.0,linestyle="-",\
-#         label="INVX0_HVT")
-#plt.plot(x,y_title2,color="r",lw=4.0,ls="-",label="INVX32_LVT")
-#plt.text(2,0.9,"100 cycles of 11-gates RO",fontsize=1,va="top",ha="center")
-num_label=y.shape[0]
-for i in xrange(15):
-    plt.plot(x,y[i],linewidth=1.0,linestyle="-",label=ori_label[i+1])
-#    plt.plot(x,y[i],color="blue",linewidth=1.0,linestyle="-",label=ori_label[i+1])
+buf_type=['NBUFFX2_RVT','NBUFFX2_LVT','NBUFFX2_HVT',\
+          'NBUFFX4_RVT','NBUFFX4_LVT','NBUFFX4_HVT',\
+          'NBUFFX8_RVT','NBUFFX8_LVT','NBUFFX8_HVT',\
+          'NBUFFX16_RVT','NBUFFX16_LVT','NBUFFX16_HVT',\
+          'NBUFFX32_RVT','NBUFFX32_LVT','NBUFFX32_HVT']
+mux_type=['MUX21X1_RVT','MUX21X1_LVT','MUX21X1_HVT',\
+          'MUX21X2_RVT','MUX21X2_LVT','MUX21X2_HVT',\
+          'MUX41X1_RVT','MUX41X1_LVT','MUX41X1_HVT',\
+          'MUX41X2_RVT','MUX41X2_LVT','MUX41X2_HVT']
+gate_list=['NBUFFX2','NBUFFX4','NBUFFX8','NBUFFX16','NBUFFX32',\
+           'MUX21X1','MUX21X2','MUX41X1','MUX41X2']
+threshold_list=['RVT','LVT','HVT']
+#different type of buffer
+for i in xrange(5):
+    plt.figure(figsize=(8,6), dpi=98)
+    plt.subplot(1,1,1)
+    #plt.plot(x,y_title1,color="blue",linewidth=1.0,linestyle="-",\
+    #         label="INVX0_HVT")
+    #plt.plot(x,y_title2,color="r",lw=4.0,ls="-",label="INVX32_LVT")
+    #plt.text(2,0.9,"100 cycles of 11-gates RO",fontsize=1,va="top",ha="center")
+    num_label=y.shape[0]
+    #different type of Voltage Threshold
+    for j in xrange(3):
+        plt.plot(x,y[i*3+j],linewidth=1.0,linestyle="-",label=ori_label[i*3+j+1])
     
-plt.legend()
-plt.title('Delay difference between inverters under aging pressure')
-#plt.text(0.5,0.8,'100 cycles of 11-gates RO',color='black',va='top',ha='center')
-plt.xlabel('month')
-plt.ylabel('delay')
-#plt.axis([0,40,0,8.500e-8])
-plt.xticks(range(0,60+6,6),range(0,60+6,6))
-#plt.yticks([],[])
-plt.savefig(design+'.eps')
-plt.savefig(design+'.jpg')
+    plt.plot(x,y[20-1],linewidth=1.0,linestyle="-",label=ori_label[20])
+    #    plt.plot(x,y[i],color="blue",linewidth=1.0,linestyle="-",label=ori_label[i+1])
+        
+    plt.legend()
+    plt.title('Delay difference between inverters(%s) under aging pressure'%gate_list[i])
+    #plt.text(0.5,0.8,'100 cycles of 11-gates RO',color='black',va='top',ha='center')
+    plt.xlabel('month')
+    plt.ylabel('delay')
+    #plt.axis([0,40,0,8.500e-8])
+    plt.xticks(range(0,60+6,6),range(0,60+6,6))
+    #plt.yticks([],[])
+    plt.savefig(directory+design+gate_list[i]+'.eps')
+    plt.savefig(directory+design+gate_list[i]+'.jpg')
+    
+for i in xrange(3):
+    plt.figure(figsize=(8,6), dpi=98)
+    plt.subplot(1,1,1)
+    num_label=y.shape[0]
+    for j in xrange(5):
+        plt.plot(x,y[i+j*3],linewidth=1.0,linestyle="-",label=ori_label[i+j*3+1])
+
+    plt.plot(x,y[20-1],linewidth=1.0,linestyle="-",label=ori_label[20])
+#    plt.plot(x,y[16+i*4-1],linewidth=1.0,linestyle="-",label=ori_label[16+i*4])
+    plt.legend()
+    plt.title('Delay difference between thresholds(%s) under aging pressure'%threshold_list[i])
+    plt.xlabel('month')
+    plt.ylabel('delay')
+    plt.xticks(range(0,60+6,6),range(0,60+6,6))
+    plt.savefig(directory+design+threshold_list[i]+'.eps')
+    plt.savefig(directory+design+threshold_list[i]+'.jpg')
+
 
 
 
