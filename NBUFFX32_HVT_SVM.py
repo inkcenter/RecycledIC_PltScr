@@ -149,41 +149,8 @@ if __name__ == '__main__':
     
     # Plot also the training points
     colors = [color_map[j] for j in y_train]
-    
-#    # Plot and scatter in a simple way
-#    scatter_step = 20
-#    x_scatter = x_train[::scatter_step,:]
-#    num_scatter = 100/scatter_step
-#    sparse_step = 20
-#    x_sparse = x_train[::sparse_step,:]
-#    num_sparse = 100/sparse_step
-###############################################################################
-#       There is a odd/abnormal/suspicious mixed into the other area  
-#    x_fresh_0 = x_scatter[0:1*num_scatter+1,0]
-#    x_fresh_1 = x_scatter[0:1*num_scatter+1,1]
-#    plt.scatter(x_fresh_0,x_fresh_1,marker='o',edgecolors='black')
-#    
-#    x_aged_0 = x_scatter[1*num_scatter+1:4*num_scatter+1,0]
-#    x_aged_1 = x_scatter[1*num_scatter+1:4*num_scatter+1,1]
-#    plt.scatter(x_aged_0,x_aged_1,marker='^',edgecolors='black')
-#    
-#    x_recycled_0 = x_scatter[13*num_scatter+1:37*num_scatter+1,0]
-#    x_recycled_1 = x_scatter[13*num_scatter+1:37*num_scatter+1,1]
-#    plt.scatter(x_recycled_0,x_recycled_1,marker='+',edgecolors='black')
-###############################################################################
-#    x_fresh_0 = x_scatter[0:1*num_scatter,0]
-#    x_fresh_1 = x_scatter[0:1*num_scatter,1]
-#    plt.scatter(x_fresh_0,x_fresh_1,marker='o',edgecolors='black')
-#    
-#    x_aged_0 = x_scatter[1*num_scatter:4*num_scatter+1,0]
-#    x_aged_1 = x_scatter[1*num_scatter:4*num_scatter+1,1]
-#    plt.scatter(x_aged_0,x_aged_1,marker='^',edgecolors='black')
-#    
-#    x_recycled_0 = x_sparse[13*num_sparse:37*num_sparse,0]
-#    x_recycled_1 = x_sparse[13*num_sparse:37*num_sparse,1]
-#    plt.scatter(x_recycled_0,x_recycled_1,marker='+',edgecolors='black')
-###############################################################################
-    
+
+###############################################################################        
     IC_dict = dict(fresh=[0],aged=range(1,4),old=range(4,13),recycled=range(13,37))
     IC_type = ['fresh','aged','old','recycled']
     step_list = [5,10,20,30]
